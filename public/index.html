@@ -177,17 +177,17 @@
           </ol>
           <h4>Some Examples and Scenarios</h4>
           <strong>Let's get started</strong>
-          <p>To create a user you need to request "POST /users" with a username, password and email.</p>
-          <p>Once you have created a user, you can use the username and the password to generate the Authorization HTTP header for basic authentication. Every action other than "POST /users" needs authentication with basic.</p>
+          <p>To create a user you need to request <span class="badge">POST /users</span> with a username, password and email.</p>
+          <p>Once you have created a user, you can use the username and the password to generate the Authorization HTTP header for basic authentication. Every action other than <span class="badge">POST /users</span> needs authentication with basic.</p>
           <strong>Finding other users</strong>
-          <p>To find other users in the system request "GET /users". This will return every registered user.</p>
+          <p>To find other users in the system request <span class="badge">GET /users</span>. This will return every registered user.</p>
           <strong>Start a conversation</strong>
-          <p>To start a new conversation you need to request "POST /conversations" with a name and a user_id of the user you want to talk to. A conversation can have multiple users, but needs at least two to be valid. So you do not need to include this feature, as the previous API did not include this.</p>
+          <p>To start a new conversation you need to request <span class="badge">POST /conversations</span> with a name and a user_id of the user you want to talk to. A conversation can have multiple users, but needs at least two to be valid. So you do not need to include this feature, as the previous API did not include this.</p>
           <p>In this sense a conversation contains the participating users and the messages sent. So by initializing a conversation, no message has been sent yet.</p>
           <strong>Send a message</strong>
-          <p>To send a message you need an existing conversation. Request "POST /conversations/[conversation_id]/messages" with the content of the message. Every user in the conversation will be able to see the message.</p>
+          <p>To send a message you need an existing conversation. Request <span class="badge">POST /conversations/[conversation_id]/messages</span> with the content of the message. Every user in the conversation will be able to see the message.</p>
           <strong>Adding more users to a conversation</strong>
-          <p>To add more people to a conversation request "POST /conversations/[conversation_id]/users" with a user_id.</p>
+          <p>To add more people to a conversation request <span class="badge">POST /conversations/[conversation_id]/users</span> with a user_id.</p>
           <strong>Adding images</strong>
           <p><em>This feature is not yet implemented, but will be soon. You would be able to add images to messages and users.</em></p>
           <p class="lead">If people are unclear please let me know! I will help as much as I can. <a href="mailto:tsov@me.com?subject=MessageAPI">Mail me!</a></p>
