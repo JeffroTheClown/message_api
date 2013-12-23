@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Message API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery-2.0.3.min.js" type="text/javascript"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="page-header">
+            <h1>Message API Documentation</h1>
+          </div>
+        </div>
+      </div>
+      <!--<div class="row">
+        <div class="col-lg-12">
+          <h2>Database tables</h2>
+          <h3>Users Table</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>id</td>
+                <td>integer</td>
+                <td>Unique identifier for the user</td>
+              </tr>
+              <tr>
+                <td>username</td>
+                <td>string</td>
+                <td>Name of the user</td>
+              </tr>
+              <tr>
+                <td>password</td>
+                <td>string</td>
+                <td>Password of the user</td>
+              </tr>
+              <tr>
+                <td>email</td>
+                <td>string</td>
+                <td>Email of the user</td>
+              </tr>
+              <tr>
+                <td>created_at</td>
+                <td>date</td>
+                <td>Date of creation</td>
+              </tr>
+              <tr>
+                <td>updated_at</td>
+                <td>date</td>
+                <td>Date of last update</td>
+              </tr>
+            </tbody>
+          </table>
+          <h3>Conversations Table</h3>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>id</td>
+              <td>integer</td>
+              <td>Unique identifier for the conversation</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>string</td>
+              <td>Name of the conversation</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>date</td>
+              <td>Date of creation</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>date</td>
+              <td>Date of last update</td>
+            </tr>
+            </tbody>
+          </table>
+          <h3>Messages Table</h3>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>id</td>
+              <td>integer</td>
+              <td>Unique identifier for the message</td>
+            </tr>
+            <tr>
+              <td>content</td>
+              <td>text</td>
+              <td>Content of the message</td>
+            </tr>
+            <tr>
+              <td>conversation_id</td>
+              <td>integer</td>
+              <td>Id of the associated conversation</td>
+            </tr>
+            <tr>
+              <td>user_id</td>
+              <td>integer</td>
+              <td>Id of the associated conversation</td>
+            </tr>
+            <tr>
+              <td>created_at</td>
+              <td>date</td>
+              <td>Date of creation</td>
+            </tr>
+            <tr>
+              <td>updated_at</td>
+              <td>date</td>
+              <td>Date of last update</td>
+            </tr>
+            </tbody>
+          </table>
+          <h3>Conversations Users Table</h3>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>id</td>
+              <td>integer</td>
+              <td>Unique identifier for the conversation and user relationship</td>
+            </tr>
+            <tr>
+              <td>user_id</td>
+              <td>integer</td>
+              <td>Id of the associated user</td>
+            </tr>
+            <tr>
+              <td>conversation_id</td>
+              <td>integer</td>
+              <td>Id of the associated conversation</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>-->
+      <div class="row">
+        <div class="col-lg-12">
+          <h2>Usage</h2>
+          <p>This API lets you create users, conversations and messages within conversations. There are some things that need to be explained first though. Creating/registering users, obviously, does not require you to be logged in, but every other API action does. The authentication is quite easy. You will have to use <a href="http://en.wikipedia.org/wiki/Basic_access_authentication" target="_blank">basic authentication</a>, which is the simplest way of authentication to a stateless API (No cookies, etc). You will need to provide your username and password for every request made to the API, by concatenting your username with a colon and the password, e.g. username + ":" + password. This contatentated string will need to be encoded in base64, e.g. base64(username + ":" + password). Our platforms provide us with standard libraries to do that automatically for us. If you are stuck with this one, <a href="mailto:tsov@me.com?subject=MessageAPI">please let me know</a>.</p>
+          <div class="space-6"></div>
+          <strong>Basic Authentication (Done manually)</strong>
+          <ol>
+            <li>Concatenate username with a colon and password => username + ":" + password</li>
+            <li>Take the concatenated string and encoded it in base64 => base64(username + ":" + password)</li>
+            <li>Use the HTTP Authorization request header and use this as its value => "basic " + base64(username + ":" + password)</li>
+          </ol>
+          <h4>Some Examples and Scenarios</h4>
+          <strong>Let's get started</strong>
+          <p>To create a user you need to request "POST /users" with a username, password and email.</p>
+          <p>Once you have created a user, you can use the username and the password to generate the Authorization HTTP header for basic authentication. Every action other than "POST /users" needs authentication with basic.</p>
+          <strong>Finding other users</strong>
+          <p>To find other users in the system request "GET /users". This will return every registered user.</p>
+          <strong>Start a conversation</strong>
+          <p>To start a new conversation you need to request "POST /conversations" with a name and a user_id of the user you want to talk to. A conversation can have multiple users, but needs at least two to be valid. So you do not need to include this feature, as the previous API did not include this.</p>
+          <p>In this sense a conversation contains the participating users and the messages sent. So by initializing a conversation, no message has been sent yet.</p>
+          <strong>Send a message</strong>
+          <p>To send a message you need an existing conversation. Request "POST /conversations/[conversation_id]/messages" with the content of the message. Every user in the conversation will be able to see the message.</p>
+          <strong>Adding more users to a conversation</strong>
+          <p>To add more people to a conversation request "POST /conversations/[conversation_id]/users" with a user_id.</p>
+          <strong>Adding images</strong>
+          <p><em>This feature is not yet implemented, but will be soon. You would be able to add images to messages and users.</em></p>
+          <p class="lead">If people are unclear please let me know! I will help as much as I can. <a href="mailto:tsov@me.com?subject=MessageAPI">Mail me!</a></p>
+          <p>Max</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <h2>API Endpoints</h2>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              GET /users
+            </div>
+            <div class="panel-body">
+              <p>Responds with all the users currently present in the system</p>
+              <strong>Example:</strong>
+              <pre>
+{
+    "users": [
+        {
+            "id": 1,
+            "username": "max",
+            "email": "test@test.com"
+        },
+        {
+            "id": 2,
+            "username": "someone",
+            "email": "dfghjk@fghjk.com"
+        }
+    ]
+}
+              </pre>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              GET /users/[id]
+            </div>
+            <div class="panel-body">
+              <p>Responds with one user with a given id</p>
+              <strong>Example:</strong>
+              <pre>
+{
+    "user": {
+        "id": 1,
+        "username": "max",
+        "email": "test@test.com"
+    }
+}
+              </pre>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              POST /users
+            </div>
+            <div class="panel-body">
+              <p>Creates a user. Note, this is the only API route where you do not need to be logged in.</p>
+              <strong>Parameters</strong>
+              <ul>
+                <li><span class="badge">username</span></li>
+                <li><span class="badge">password</span></li>
+                <li><span class="badge">email</span></li>
+              </ul>
+              <strong>Example:</strong>
+              <pre>
+{
+    "user": {
+        "id": 1,
+        "username": "max",
+        "email": "test@test.com"
+    }
+}
+              </pre>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              GET /me
+            </div>
+            <div class="panel-body">
+              <p>Gets the profile information of the currently logged in user.</p>
+              <strong>Example:</strong>
+              <pre>
+{
+    "user": {
+        "id": 1,
+        "username": "max",
+        "email": "test@test.com"
+    }
+}
+              </pre>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              PUT /me
+            </div>
+            <div class="panel-body">
+              <p>Updates the currently logged in user. You can change the username, password, or email.</p>
+              <strong>Parameters</strong>
+              <ul>
+                <li><span class="badge">username</span> optional</li>
+                <li><span class="badge">password</span> optional</li>
+                <li><span class="badge">email</span> optional</li>
+              </ul>
+              <strong>Example:</strong>
+              <pre>
+{
+    "user": {
+        "id": 1,
+        "username": "max",
+        "email": "test@test.com"
+    }
+}
+              </pre>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              GET /conversations
+            </div>
+            <div class="panel-body">
+              <p>Responds with all the conversations by the currently logged in user</p>
+              <strong>Example:</strong>
+              <pre>
+{
+    "conversations": [
+        {
+            "id": 1,
+            "name": "some conversation",
+            "users": [
+                {
+                    "id": 2,
+                    "username": "someone",
+                    "email": "dfghjk@fghjk.com"
+                },
+                {
+                    "id": 1,
+                    "username": "max",
+                    "email": "test@test.com"
+                }
+            ]
+        }
+    ]
+}
+              </pre>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              GET /conversations/[id]
+            </div>
+            <div class="panel-body">
+              <p>Responds with a conversation</p>
+              <strong>Example:</strong>
+              <pre>
+{
+    "conversation": {
+        "id": 1,
+        "name": "some conversation",
+        "users": [
+            {
+                "id": 2,
+                "username": "someone",
+                "email": "dfghjk@fghjk.com"
+            },
+            {
+                "id": 1,
+                "username": "max",
+                "email": "test@test.com"
+            }
+        ]
+    }
+}
+              </pre>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              POST /conversations
+            </div>
+            <div class="panel-body">
+              <p>Creates a new conversation with another user</p>
+              <strong>Parameters</strong>
+              <ul>
+                <li><span class="badge">name</span></li>
+                <li><span class="badge">user_id</span></li>
+              </ul>
+              <strong>Example:</strong>
+              <pre>
+{
+    "conversation": {
+        "id": 1,
+        "name": "some conversation",
+        "users": [
+            {
+                "id": 2,
+                "username": "someone",
+                "email": "dfghjk@fghjk.com"
+            },
+            {
+                "id": 1,
+                "username": "max",
+                "email": "test@test.com"
+            }
+        ]
+    }
+}
+              </pre>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              DELETE /conversations/[id]
+            </div>
+            <div class="panel-body">
+              <p>Deletes an existing conversation</p>
+              <strong>Example:</strong>
+              <pre>
+{
+    "conversation": {
+        "id": 1,
+        "name": "some conversation",
+        "users": [
+            {
+                "id": 2,
+                "username": "someone",
+                "email": "dfghjk@fghjk.com"
+            },
+            {
+                "id": 1,
+                "username": "max",
+                "email": "test@test.com"
+            }
+        ]
+    }
+}
+              </pre>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              GET /conversations/[id]/messages
+            </div>
+            <div class="panel-body">
+              <p>Gets all the messages inside a conversation</p>
+              <strong>Example:</strong>
+              <pre>
+{
+    "messages": [
+        {
+            "id": 3,
+            "content": "first message",
+            "created_at": "2013-12-23T00:00:01Z",
+            "updated_at": "2013-12-23T00:00:01Z",
+            "user": {
+                "id": 4,
+                "username": "max",
+                "email": "tsov@me.com"
+            }
+        },
+        {
+            "id": 4,
+            "content": "second message",
+            "created_at": "2013-12-23T00:06:30Z",
+            "updated_at": "2013-12-23T00:06:30Z",
+            "user": {
+                "id": 3,
+                "username": "someone else",
+                "email": "52374@dsf.com"
+            }
+        }
+    ]
+}
+              </pre>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              GET /conversations/[id]/messages/[id]
+            </div>
+            <div class="panel-body">
+              <p>Gets one message inside a conversation</p>
+              <strong>Example:</strong>
+              <pre>
+{
+    "message": {
+        "id": 3,
+        "content": "first message",
+        "created_at": "2013-12-23T00:00:01Z",
+        "updated_at": "2013-12-23T00:00:01Z",
+        "user": {
+            "id": 4,
+            "username": "max",
+            "email": "tsov@me.com"
+        }
+    }
+}
+              </pre>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              POST /conversations/[id]/messages
+            </div>
+            <div class="panel-body">
+              <p>Create a message inside a conversation</p>
+              <strong>Parameters</strong>
+              <ul>
+                <li><span class="badge">content</span></li>
+              </ul>
+              <strong>Example:</strong>
+              <pre>
+{
+    "message": {
+        "id": 3,
+        "content": "first message",
+        "created_at": "2013-12-23T00:00:01Z",
+        "updated_at": "2013-12-23T00:00:01Z",
+        "user": {
+            "id": 4,
+            "username": "max",
+            "email": "tsov@me.com"
+        }
+    }
+}
+              </pre>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              PUT /conversations/[id]/messages/[id]
+            </div>
+            <div class="panel-body">
+              <p>Update a message inside a conversation</p>
+              <strong>Parameters</strong>
+              <ul>
+                <li><span class="badge">content</span> optional</li>
+              </ul>
+              <strong>Example:</strong>
+              <pre>
+{
+    "message": {
+        "id": 3,
+        "content": "first message",
+        "created_at": "2013-12-23T00:00:01Z",
+        "updated_at": "2013-12-23T00:00:01Z",
+        "user": {
+            "id": 4,
+            "username": "max",
+            "email": "tsov@me.com"
+        }
+    }
+}
+              </pre>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              DELETE /conversations/[id]/messages/[id]
+            </div>
+            <div class="panel-body">
+              <p>Deletes a message inside a conversation</p>
+              <strong>Example:</strong>
+              <pre>
+{
+    "message": {
+        "id": 3,
+        "content": "first message",
+        "created_at": "2013-12-23T00:00:01Z",
+        "updated_at": "2013-12-23T00:00:01Z",
+        "user": {
+            "id": 4,
+            "username": "max",
+            "email": "tsov@me.com"
+        }
+    }
+}
+              </pre>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              GET /conversations/[id]/users
+            </div>
+            <div class="panel-body">
+              <p>Gets all the users inside a conversation</p>
+              <strong>Example:</strong>
+              <pre>
+{
+    "users": [
+        {
+            "id": 3,
+            "username": "someone else",
+            "email": "52374@dsf.com"
+        },
+        {
+            "id": 4,
+            "username": "max",
+            "email": "tsov@me.com"
+        }
+    ]
+}
+              </pre>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              POST /conversations/[id]/users
+            </div>
+            <div class="panel-body">
+              <p>Creates an existing/registered user for a conversation</p>
+              <strong>Example:</strong>
+              <pre>
+{
+    "user": {
+        "id": 3,
+        "username": "someone else",
+        "email": "52374@dsf.com"
+    }
+}
+              </pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
