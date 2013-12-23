@@ -24,6 +24,7 @@ gem 'jquery-rails'
 gem 'rabl'
 gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
+gem 'bcrypt-ruby'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
