@@ -39,7 +39,7 @@ class MessagesController < ApplicationController
     @message.content = params[:content]
     @message.read = false
     @message.save!
-    @conversation.messages << message
+    @conversation.messages << @message
     @conversation.save!
     respond_with @message
   end

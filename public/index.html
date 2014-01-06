@@ -188,6 +188,8 @@
           <p>To send a message you need an existing conversation. Request <span class="badge">POST /conversations/[conversation_id]/messages</span> with the content of the message. Every user in the conversation will be able to see the message.</p>
           <strong>Adding more users to a conversation</strong>
           <p>To add more people to a conversation request <span class="badge">POST /conversations/[conversation_id]/users</span> with a user_id.</p>
+          <strong>Last seen</strong>
+          <p>So this is a new feature that lets you determine when a user was last active. I added a little attribute to the user JSON response, which tells you when the user last interacted with the API.</p>
           <strong>Adding images</strong>
           <p><em>This feature is not yet implemented, but will be soon. You would be able to add images to messages and users.</em></p>
           <p class="lead">If people are unclear please let me know! I will help as much as I can. <a href="mailto:tsov@me.com?subject=MessageAPI">Mail me!</a></p>
@@ -210,12 +212,14 @@
         {
             "id": 1,
             "username": "max",
-            "email": "test@test.com"
+            "email": "test@test.com",
+            "last_seen": "2014-01-06T17:49:01Z"
         },
         {
             "id": 2,
             "username": "someone",
-            "email": "dfghjk@fghjk.com"
+            "email": "dfghjk@fghjk.com",
+            "last_seen": "2014-01-06T17:49:01Z"
         }
     ]
 }
@@ -234,7 +238,8 @@
     "user": {
         "id": 1,
         "username": "max",
-        "email": "test@test.com"
+        "email": "test@test.com",
+        "last_seen": "2014-01-06T17:49:01Z"
     }
 }
               </pre>
@@ -258,7 +263,8 @@
     "user": {
         "id": 1,
         "username": "max",
-        "email": "test@test.com"
+        "email": "test@test.com",
+        "last_seen": "2014-01-06T17:49:01Z"
     }
 }
               </pre>
@@ -319,16 +325,20 @@
         {
             "id": 1,
             "name": "some conversation",
+            "created_at": "2014-01-06T17:37:10Z",
+            "updated_at": "2014-01-06T17:37:10Z",
             "users": [
                 {
                     "id": 2,
                     "username": "someone",
-                    "email": "dfghjk@fghjk.com"
+                    "email": "dfghjk@fghjk.com",
+                    "last_seen": "2014-01-06T17:49:01Z"
                 },
                 {
                     "id": 1,
                     "username": "max",
-                    "email": "test@test.com"
+                    "email": "test@test.com",
+                    "last_seen": "2014-01-06T17:49:01Z"
                 }
             ]
         }
@@ -349,16 +359,20 @@
     "conversation": {
         "id": 1,
         "name": "some conversation",
+        "created_at": "2014-01-06T17:37:10Z",
+        "updated_at": "2014-01-06T17:37:10Z",
         "users": [
             {
                 "id": 2,
                 "username": "someone",
-                "email": "dfghjk@fghjk.com"
+                "email": "dfghjk@fghjk.com",
+                "last_seen": "2014-01-06T17:49:01Z"
             },
             {
                 "id": 1,
                 "username": "max",
-                "email": "test@test.com"
+                "email": "test@test.com",
+                "last_seen": "2014-01-06T17:49:01Z"
             }
         ]
     }
@@ -383,16 +397,20 @@
     "conversation": {
         "id": 1,
         "name": "some conversation",
+        "created_at": "2014-01-06T17:37:10Z",
+        "updated_at": "2014-01-06T17:37:10Z",
         "users": [
             {
                 "id": 2,
                 "username": "someone",
-                "email": "dfghjk@fghjk.com"
+                "email": "dfghjk@fghjk.com",
+                "last_seen": "2014-01-06T17:49:01Z"
             },
             {
                 "id": 1,
                 "username": "max",
-                "email": "test@test.com"
+                "email": "test@test.com",
+                "last_seen": "2014-01-06T17:49:01Z"
             }
         ]
     }
@@ -412,16 +430,20 @@
     "conversation": {
         "id": 1,
         "name": "some conversation",
+        "created_at": "2014-01-06T17:37:10Z",
+        "updated_at": "2014-01-06T17:37:10Z",
         "users": [
             {
                 "id": 2,
                 "username": "someone",
-                "email": "dfghjk@fghjk.com"
+                "email": "dfghjk@fghjk.com",
+                "last_seen": "2014-01-06T17:49:01Z"
             },
             {
                 "id": 1,
                 "username": "max",
-                "email": "test@test.com"
+                "email": "test@test.com",
+                "last_seen": "2014-01-06T17:49:01Z"
             }
         ]
     }
@@ -447,7 +469,8 @@
             "user": {
                 "id": 4,
                 "username": "max",
-                "email": "tsov@me.com"
+                "email": "tsov@me.com",
+                "last_seen": "2014-01-06T17:49:01Z"
             }
         },
         {
@@ -458,7 +481,8 @@
             "user": {
                 "id": 3,
                 "username": "someone else",
-                "email": "52374@dsf.com"
+                "email": "52374@dsf.com",
+                "last_seen": "2014-01-06T17:49:01Z"
             }
         }
     ]
@@ -483,7 +507,8 @@
         "user": {
             "id": 4,
             "username": "max",
-            "email": "tsov@me.com"
+            "email": "tsov@me.com",
+            "last_seen": "2014-01-06T17:49:01Z"
         }
     }
 }
@@ -511,7 +536,8 @@
         "user": {
             "id": 4,
             "username": "max",
-            "email": "tsov@me.com"
+            "email": "tsov@me.com",
+            "last_seen": "2014-01-06T17:49:01Z"
         }
     }
 }
@@ -539,7 +565,8 @@
         "user": {
             "id": 4,
             "username": "max",
-            "email": "tsov@me.com"
+            "email": "tsov@me.com",
+            "last_seen": "2014-01-06T17:49:01Z"
         }
     }
 }
@@ -563,7 +590,8 @@
         "user": {
             "id": 4,
             "username": "max",
-            "email": "tsov@me.com"
+            "email": "tsov@me.com",
+            "last_seen": "2014-01-06T17:49:01Z"
         }
     }
 }
@@ -583,12 +611,14 @@
         {
             "id": 3,
             "username": "someone else",
-            "email": "52374@dsf.com"
+            "email": "52374@dsf.com",
+            "last_seen": "2014-01-06T17:49:01Z"
         },
         {
             "id": 4,
             "username": "max",
-            "email": "tsov@me.com"
+            "email": "tsov@me.com",
+            "last_seen": "2014-01-06T17:49:01Z"
         }
     ]
 }

@@ -18,9 +18,6 @@ class ConversationsController < ApplicationController
     @conversation.name = params[:name]
     @invited_user.conversations <<(@conversation) if @invited_user
     @current_user.conversations <<(@conversation)
-    @conversation.save!
-    @invited_user.save!
-    @current_user.save!
     respond_with @conversation
   end
 
