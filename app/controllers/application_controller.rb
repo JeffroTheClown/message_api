@@ -1,3 +1,5 @@
+require 'time'
+
 class ApplicationController < ActionController::Base
   class NotPrivileged < StandardError; end
 
@@ -26,6 +28,8 @@ class ApplicationController < ActionController::Base
   def authenticate
     if user = authenticate_with_http_basic { |u, p| User.authenticate(u, p) }
       @current_user = user
+      @current_user.last_seen = Time.now.iso8601
+      @current_user.save!
     else
       render status: 401, template: 'errors/access_denied'
     end

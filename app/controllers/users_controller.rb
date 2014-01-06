@@ -26,6 +26,7 @@ class UsersController < ApplicationController
       @user.username = params[:username]
       @user.password = params[:password]
       @user.email = params[:email]
+      @user.last_seen = Time.now.iso8601
       @user.save!
     end
     respond_with @user
