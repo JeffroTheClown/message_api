@@ -3,6 +3,7 @@ class MessagesController < ApplicationController
   def index
     @conversation = Conversation.find(params[:conversation_id])
     @messages = @conversation.messages
+    @messages.sort_by! { |h|  h[:created_at] }
     respond_with @messages
   end
 
@@ -25,6 +26,7 @@ class MessagesController < ApplicationController
     @message.read = false
     @message.save!
     @conversation.messages << @message
+    @conversation.updated_at = Time.now.iso8601
     @conversation.save!
     respond_with @message
   end
@@ -40,6 +42,7 @@ class MessagesController < ApplicationController
     @message.read = false
     @message.save!
     @conversation.messages << @message
+    @conversation.updated_at = Time.now.iso8601
     @conversation.save!
     respond_with @message
   end
@@ -52,6 +55,8 @@ class MessagesController < ApplicationController
     end
     raise ActiveRecord::RecordNotFound if @message.nil?
     @message.destroy
+    @conversation.updated_at = Time.now.iso8601
+    @conversation.save!
   end
 
 end
