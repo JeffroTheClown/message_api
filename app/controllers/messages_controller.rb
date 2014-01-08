@@ -24,6 +24,7 @@ class MessagesController < ApplicationController
     @message.content = params[:content]
     @message.user = @current_user
     @message.read = false
+    @message.updated_at = @message.created_at
     @message.save!
     @conversation.messages << @message
     @conversation.updated_at = Time.now.iso8601
@@ -40,6 +41,7 @@ class MessagesController < ApplicationController
     raise ActiveRecord::RecordNotFound if @message.nil?
     @message.content = params[:content]
     @message.read = false
+    @message.updated_at = Time.now.iso8601
     @message.save!
     @conversation.messages << @message
     @conversation.updated_at = Time.now.iso8601
