@@ -1,3 +1,3 @@
 object @current_user => :user
 
-extends "users/index"
+extends "me/index"

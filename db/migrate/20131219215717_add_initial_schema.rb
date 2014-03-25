@@ -7,31 +7,12 @@ class AddInitialSchema < ActiveRecord::Migration
       t.timestamps
   	end
 
-    create_table :messages do |t|
-      t.text :content
-      t.integer :conversation_id
-      t.integer :user_id
-      t.boolean :read
-      t.timestamp :read_date
+    create_table :locations do |t|
+      t.float :latitude
+      t.float :longitude
+      t.integer :receiving_user_id
+      t.integer :sending_user_id
       t.timestamps
-    end
-
-    create_table :conversations do |t|
-      t.string :name
-      t.timestamps
-    end
-
-    create_table :images do |t|
-      t.string :location_path
-      t.string :url_path
-      t.integer :imageable_id
-      t.string :imageable_type
-      t.timestamps
-    end
-
-    create_table :conversations_users do |t|
-      t.integer :user_id
-      t.integer :conversation_id
     end
   end
 end

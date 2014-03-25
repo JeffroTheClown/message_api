@@ -5,9 +5,8 @@ class MeController < ApplicationController
   end
 
   def update
-    @current_user.username = params[:username]
     @current_user.password = params[:password]
-    @current_user.email = params[:email]
+    @current_user.save!
     respond_with @current_user
   end
 

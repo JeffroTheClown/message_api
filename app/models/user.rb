@@ -3,10 +3,6 @@ require 'bcrypt'
 class User < ActiveRecord::Base
   EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
-  attr_accessible :email, :password, :username, :salt
-  has_and_belongs_to_many :conversations
-  has_one :image, as: :imageable
-
   validates :username, :password, :email, presence: true
   validates :username, :email, uniqueness: true
 
