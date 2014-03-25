@@ -11,4 +11,14 @@ class LocationsController < ApplicationController
     respond_with @location
   end
 
+  def create
+    @location = Location.new
+    @location.latitude = params[:latitude]
+    @location.longitude = params[:longitude]
+    @location.receiving_user_id = params[:receiving_user_id]
+    @location.sending_user_id = params[:sending_user_id]
+    @location.save!
+    respond_with @location
+  end
+
 end
