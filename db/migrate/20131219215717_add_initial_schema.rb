@@ -10,6 +10,7 @@ class AddInitialSchema < ActiveRecord::Migration
     create_table :locations do |t|
       t.float :latitude
       t.float :longitude
+      t.text :message
       t.integer :receiving_user_id
       t.integer :sending_user_id
       t.timestamps

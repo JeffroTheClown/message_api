@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(:version => 20131223171450) do
   create_table "locations", :force => true do |t|
     t.float    "latitude"
     t.float    "longitude"
+    t.text     "message"
     t.integer  "receiving_user_id"
     t.integer  "sending_user_id"
     t.datetime "created_at",        :null => false

@@ -1,8 +1,11 @@
+require 'pp'
+
 class LocationsController < ApplicationController
 
   def index
-    @locations = Location.where :receiver_user_id => params[:receiver_user_id] if params[:receiver_user_id]
-    @locations = Location.where :sender_user_id => params[:sender_user_id] if params[:sender_user_id]
+    @locations = Location.where :receiving_user_id => params[:receiving_user_id] if params[:receiving_user_id]
+    @locations = Location.where :sending_user_id => params[:sending_user_id] if params[:sending_user_id]
+    pp @locations.first
     respond_with @locations
   end
 
@@ -17,6 +20,7 @@ class LocationsController < ApplicationController
     @location.longitude = params[:longitude]
     @location.receiving_user_id = params[:receiving_user_id]
     @location.sending_user_id = params[:sending_user_id]
+    @location.message = params[:message]
     @location.save!
     respond_with @location
   end
